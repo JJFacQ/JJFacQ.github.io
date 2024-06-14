@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>蒋富勤的博客</title>
+  <title>JJFACQ的博客</title>
   
   <subtitle>网络安全</subtitle>
   <link href="/atom.xml" rel="self"/>
@@ -48,7 +48,7 @@
     <link href="https://jjfacq.github.io/2023/01/14/lwaq/"/>
     <id>https://jjfacq.github.io/2023/01/14/lwaq/</id>
     <published>2023-01-14T07:27:31.000Z</published>
-    <updated>2024-06-13T14:07:19.012Z</updated>
+    <updated>2024-06-14T05:42:18.827Z</updated>
     
     <summary type="html">
     
@@ -56,8 +56,8 @@
       
         
         
-          &lt;p&gt;&lt;img src=&quot;/medias/contact.jpg&quot; alt&gt;&lt;/p&gt;
-&lt;h1 id=&quot;网络安全技术&quot;&gt;&lt;a href=&quot;#网络安全技术&quot; class=&quot;headerlink&quot; title=&quot;网络安全技术&quot;&gt;&lt;/a&gt;网络安全技术&lt;/h1&gt;&lt;h2
+          &lt;p&gt;&lt;img src=&quot;/medias/%5Cfeatureimages%5C14.jpg&quot; alt&gt;&lt;/p&gt;
+&lt;h1 id=&quot;VPN-技术&quot;&gt;&lt;a href=&quot;#VPN-技术&quot; class=&quot;headerlink&quot; title=&quot;VPN 技术&quot;&gt;&lt;/a&gt;VPN
         
       
     
@@ -67,33 +67,6 @@
     
     
       <category term="网络安全" scheme="https://jjfacq.github.io/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>sql注入 | 渗透测试</title>
-    <link href="https://jjfacq.github.io/2023/01/14/sqlzhuru/"/>
-    <id>https://jjfacq.github.io/2023/01/14/sqlzhuru/</id>
-    <published>2023-01-14T07:27:31.000Z</published>
-    <updated>2024-06-13T14:08:06.546Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt; &lt;img src=&quot;/medias/%5Cfeatureimages%5C26.jpg&quot; alt&gt;&lt;/p&gt;
-&lt;h1 id=&quot;SQL注入&quot;&gt;&lt;a href=&quot;#SQL注入&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="渗透学习" scheme="https://jjfacq.github.io/categories/%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="渗透测试" scheme="https://jjfacq.github.io/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
     
   </entry>
   
@@ -118,6 +91,33 @@
     </summary>
     
       <category term="靶机打靶" scheme="https://jjfacq.github.io/categories/%E9%9D%B6%E6%9C%BA%E6%89%93%E9%9D%B6/"/>
+    
+    
+      <category term="渗透测试" scheme="https://jjfacq.github.io/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>sql注入 | 渗透测试</title>
+    <link href="https://jjfacq.github.io/2023/01/14/sqlzhuru/"/>
+    <id>https://jjfacq.github.io/2023/01/14/sqlzhuru/</id>
+    <published>2023-01-14T07:27:31.000Z</published>
+    <updated>2024-06-13T14:08:06.546Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt; &lt;img src=&quot;/medias/%5Cfeatureimages%5C26.jpg&quot; alt&gt;&lt;/p&gt;
+&lt;h1 id=&quot;SQL注入&quot;&gt;&lt;a href=&quot;#SQL注入&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="渗透学习" scheme="https://jjfacq.github.io/categories/%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/"/>
     
     
       <category term="渗透测试" scheme="https://jjfacq.github.io/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>

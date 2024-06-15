@@ -71,11 +71,11 @@
   </entry>
   
   <entry>
-    <title>VulNyx-Exec | 靶机</title>
-    <link href="https://jjfacq.github.io/2023/01/14/wp-2/"/>
-    <id>https://jjfacq.github.io/2023/01/14/wp-2/</id>
+    <title>VulNyx-yourWAFL | 靶机</title>
+    <link href="https://jjfacq.github.io/2023/01/14/yourwafl/"/>
+    <id>https://jjfacq.github.io/2023/01/14/yourwafl/</id>
     <published>2023-01-14T07:27:31.000Z</published>
-    <updated>2024-06-13T14:07:55.831Z</updated>
+    <updated>2024-06-15T19:33:18.488Z</updated>
     
     <summary type="html">
     
@@ -83,8 +83,9 @@
       
         
         
-          &lt;p&gt;&lt;img src=&quot;/medias/%5Cfeatureimages%5C15.jpg&quot; alt&gt;&lt;/p&gt;
-&lt;h1 id=&quot;arp-scan-l扫出目标ip&quot;&gt;&lt;a href=&quot;#arp-scan-l扫出目标ip&quot; class=&quot;headerlink&quot;
+          &lt;pre&gt;&lt;code&gt;arp-scan -l&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;扫除目标ip&lt;/p&gt;
+&lt;p&gt;rustscan&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rustscan -a x.x.x.x -- -sV -sC&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img
         
       
     
@@ -118,6 +119,33 @@
     </summary>
     
       <category term="渗透学习" scheme="https://jjfacq.github.io/categories/%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="渗透测试" scheme="https://jjfacq.github.io/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>VulNyx-Exec | 靶机</title>
+    <link href="https://jjfacq.github.io/2023/01/14/wp-2/"/>
+    <id>https://jjfacq.github.io/2023/01/14/wp-2/</id>
+    <published>2023-01-14T07:27:31.000Z</published>
+    <updated>2024-06-13T14:07:55.831Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;img src=&quot;/medias/%5Cfeatureimages%5C15.jpg&quot; alt&gt;&lt;/p&gt;
+&lt;h1 id=&quot;arp-scan-l扫出目标ip&quot;&gt;&lt;a href=&quot;#arp-scan-l扫出目标ip&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="靶机打靶" scheme="https://jjfacq.github.io/categories/%E9%9D%B6%E6%9C%BA%E6%89%93%E9%9D%B6/"/>
     
     
       <category term="渗透测试" scheme="https://jjfacq.github.io/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>

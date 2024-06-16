@@ -356,19 +356,19 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                 
                 
                 
-                <a href="/categories/网络安全/" title="网络安全: 1">
+                <a href="/categories/随笔/" title="随笔: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #F9EBEA;">网络安全
+                            style="background-color: #F9EBEA;">随笔
                         <span class="tag-length">1</span>
                     </span>
                 </a>
                 
                 
-                <a href="/categories/随笔/" title="随笔: 1">
+                <a href="/categories/渗透学习/" title="渗透学习: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #F5EEF8;">随笔
+                            style="background-color: #F5EEF8;">渗透学习
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -383,10 +383,10 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                 </a>
                 
                 
-                <a href="/categories/渗透学习/" title="渗透学习: 1">
+                <a href="/categories/网络安全/" title="网络安全: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #E8F8F5;">渗透学习
+                            style="background-color: #E8F8F5;">网络安全
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -404,23 +404,26 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/01/14/wp-2/">
+                    <a href="/2023/01/14/yourwafl/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="VulNyx-Exec | 靶机">
+                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="VulNyx-yourWAFL | 靶机">
                             
-                            <span class="card-title">VulNyx-Exec | 靶机</span>
+                            <span class="card-title">VulNyx-yourWAFL | 靶机</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                
-arp-scan -l扫出目标ip192.168.193.130
-用nmap对ip进行快速扫描端口-sS使用tcp syn 扫描 -sV进行版本探测 -T5是快速扫描级别最高级  -A是全面扫描 -p-是端口扫描
+                                arp-scan -l扫除目标ip
+rustscan
+rustscan -a x.x.x.x -- -sV -sC
+看到个3000端口，试了一下好像是进不去的
+我们查看一下web请求
+curl x.x.x.x -I
 
-nmap -sS -s
+看到是302响应跳转 
                             
                         </div>
                         <div class="publish-info">
@@ -454,26 +457,23 @@ nmap -sS -s
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2023/01/14/yourwafl/">
+                    <a href="/2023/01/14/wp-2/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="VulNyx-yourWAFL | 靶机">
+                            <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="VulNyx-Exec | 靶机">
                             
-                            <span class="card-title">VulNyx-yourWAFL | 靶机</span>
+                            <span class="card-title">VulNyx-Exec | 靶机</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                arp-scan -l扫除目标ip
-rustscan
-rustscan -a x.x.x.x -- -sV -sC
-看到个3000端口，试了一下好像是进不去的
-我们查看一下web请求
-curl x.x.x.x -I
+                                
+arp-scan -l扫出目标ip192.168.193.130
+用nmap对ip进行快速扫描端口-sS使用tcp syn 扫描 -sV进行版本探测 -T5是快速扫描级别最高级  -A是全面扫描 -p-是端口扫描
 
-看到是302响应跳转 
+nmap -sS -s
                             
                         </div>
                         <div class="publish-info">

